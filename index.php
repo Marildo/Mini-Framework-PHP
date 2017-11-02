@@ -1,7 +1,7 @@
 <?php
 include("config".DIRECTORY_SEPARATOR."config.php");
 
-use UAI\baseClass\Controller;
+use UAI\Controller\Controller;
 
 $ctrl = New Controller();
 
