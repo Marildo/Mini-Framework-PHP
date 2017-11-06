@@ -1,10 +1,12 @@
 <?php
 include("config".DIRECTORY_SEPARATOR."config.php");
 
-use UAI\Controller\Controller;
+use Controller\HomeController;
 
-$ctrl = New Controller();
+$ctrl = New HomeController();
 
 $ctrl->teste();
+
+
 
 echo "<h1> Uai </h1>";
