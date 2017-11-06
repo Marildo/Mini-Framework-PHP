@@ -24,7 +24,7 @@ class Router{
     }
 
     private function setUrlParts() {
-        $this->urlParts = explode('/', $this->url);
+        $this->urlParts = explode('/', $this->url);        
     }
 
     private function setArea() {
