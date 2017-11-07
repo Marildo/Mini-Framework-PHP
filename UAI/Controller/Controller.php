@@ -11,6 +11,7 @@ class Controller extends Router
     protected $message;
     protected $title;
     protected $keywords;
+    protected $layout = '_layoutMain';
 
     
     public function __construct()
@@ -50,7 +51,22 @@ class Controller extends Router
         $this->keywords = is_null($this->keywords) ? 'Minha palavra chave' : $this->keywords;
 
         $this->setFileView($render);
+        $this->RenderLayout();
     }
+
+    private function RenderLayout()
+    {
+        if (!is_null($this->layout)) {
+            $layout = "view".DS.$this->layout.".phtml";
+
+            if (file_exists($layout)) {
+                include ($layout);
+            } else {
+                die('Não foi possivél localizar o layout');
+            }
+        }
+    }
+
 
     private function validarController()
     {         
@@ -70,7 +86,7 @@ class Controller extends Router
     {
         if (is_array($render)) {
             foreach ($render as $value) {
-                $path = 'View' .DS. $this->getArea() . DS. $this->getController() . DS. $value . '.phtml';
+                $path = 'view' .DS. $this->getArea() . DS. $this->getController() . DS. $value . '.phtml';
                 $this->fileExist($path);
                 $this->fileView[] = $path;
             }
@@ -80,7 +96,7 @@ class Controller extends Router
             $this->fileExist($this->fileView);
         }
     }
-    
+
     private function fileExist($file)
     {
         $findFile = file_exists($file);
