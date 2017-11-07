@@ -54,6 +54,19 @@ class Controller extends Router
         $this->RenderLayout();
     }
 
+    public function Render()
+    {
+        if (is_array($this->fileView) && count($this->fileView) > 0) {
+            foreach ($this->fileView as $key => $value) {
+                include ($value);
+            }
+        } else {
+            if (!is_null($this->fileView) && $this->fileExist($this->fileView)) {
+                include ($this->fileView);
+            }
+        }
+    }
+
     private function RenderLayout()
     {
         if (!is_null($this->layout)) {
