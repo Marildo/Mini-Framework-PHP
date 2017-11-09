@@ -8,7 +8,3 @@ $ctrl = New HomeController();
 $ctrl->teste();
 
 $ctrl->run();
-
-
-
-echo "<h1> Uai </h1>";
