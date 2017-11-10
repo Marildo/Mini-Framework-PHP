@@ -29,7 +29,7 @@ class Controller extends Router
 
     public function run()
     {
-        $this->runController = 'Controller\\' . $this->getController() . 'Controller';
+        $this->runController = 'Controller' .DS. $this->getController() . 'Controller';
         $this->validarController();
 
         $this->runController = new $this->runController();

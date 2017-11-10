@@ -8,3 +8,7 @@ $ctrl = New HomeController();
 $ctrl->teste();
 
 $ctrl->run();
+
+use UAI\DAO\Dao;
+
+$dao = new Dao();
