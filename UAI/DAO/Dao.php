@@ -4,26 +4,47 @@ namespace UAI\DAO;
 
 use \PDOException;
 use UAI\DAO\Connection;
+use UAI\DAO\Libs\Entity;
+use UAI\DAO\Libs\Atributes;
 
-class Dao{
+class Dao
+{
 
     private $conn;
     private $instanceConn;
+    protected $entity;
+    private $atributes;
 
-    public function __construct(){
-      $this->conn = new Connection();
-      $this->instanceConn = $this->conn->connection();
+    private $tableName;
+    private $tableKey;
 
-      $query = "SELECT * FROM livros";
-      $pdo = $this->instanceConn->prepare($query);
-      
-              try {
-                  $pdo->execute();
-                  var_dump($pdo->fetch());
-              } catch (PDOException $e) {
-                var_dump($e->getMessage());
-              }
+    public function __construct()
+    {
+        $this->conn = new Connection();
+        $this->entity = new Entity();
+        $this->atributes = new Atributes();
+        
+        $this->entity->tableName ='livros' ;
     }
 
+    public function readByKey($key)
+    {
+        $this->init();
+        $query = "SELECT * FROM $this->tableName WHERE $this->dbKey = '$key'";
+        $pdo = $this->instanceConn->prepare($query);
+        
+        try {
+            $pdo->execute();
+            return $pdo->fetch();
+        } catch (PDOException $e){
+            dump($e->getMessage());
+        }
+    }
 
+    private function init()
+    {
+        $this->instanceConn = $this->conn->connection();
+        $this->tableName = $this->entity->tableName;
+        $this->dbKey = $this->entity->key;
+    }
 }
