@@ -59,6 +59,23 @@ class Dao
         }
     }
 
+    public function readByAtributes($atributes) {
+        $this->init();
+
+        $where = $this->atributes->createWhere($atributes);      
+
+        $query = "SELECT * FROM $this->tableName $where";        
+        $pdo = $this->instanceConn->prepare($query);
+
+        try {
+            $pdo->execute();
+            return $pdo->fetchAll();
+        } catch (PDOException $e) {
+            dump($e->getMessage());
+        }
+    }
+
+
     private function init()
     {
         $this->instanceConn = $this->conn->connection();
