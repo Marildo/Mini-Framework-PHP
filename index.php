@@ -13,6 +13,9 @@ use UAI\DAO\Dao;
 
 $dao = new Dao();
 
-$dados = $dao->readByKey(1);
+$novo = ['nome'=>'As cronicas de fogo','valor'=>'60'];
+$idNovo=$dao->create($novo);
+
+$dados = $dao->readByKey($idNovo);
 
 var_dump($dados);

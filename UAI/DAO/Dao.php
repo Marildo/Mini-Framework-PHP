@@ -27,6 +27,24 @@ class Dao
         $this->entity->tableName ='livros' ;
     }
 
+    public function create($pojo)
+    {        
+        $this->init();
+        $fields = $this->atributes->createFields($pojo);
+        $values = $this->atributes->createValues($pojo);
+        $bindParameter = $this->atributes->bindCreateParamenters($pojo);
+        
+        $query = "INSERT INTO $this->tableName ($fields) VALUES ($values)";
+        $pdo = $this->instanceConn->prepare($query);
+        
+        try {
+            $pdo->execute($bindParameter);
+            return $this->instanceConn->lastInsertId();
+        } catch (PDOException $e) {
+            var_dump($e->getMessage());
+        }
+    }
+
     public function readByKey($key)
     {
         $this->init();
@@ -36,7 +54,7 @@ class Dao
         try {
             $pdo->execute();
             return $pdo->fetch();
-        } catch (PDOException $e){
+        } catch (PDOException $e) {
             dump($e->getMessage());
         }
     }
