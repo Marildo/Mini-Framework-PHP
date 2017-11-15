@@ -7,7 +7,8 @@ use UAI\DAO\Connection;
 use UAI\DAO\Libs\Entity;
 use UAI\DAO\Libs\Atributes;
 
-class Dao {
+class Dao
+{
 
     private $conn;
     private $instanceConn;
@@ -16,7 +17,8 @@ class Dao {
     private $tableName;
     private $tableKey;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->conn = new Connection();
         $this->entity = new Entity();
         $this->atributes = new Atributes();
@@ -24,7 +26,8 @@ class Dao {
         $this->entity->tableName = 'livros';
     }
 
-    public function create($pojo) {
+    public function create($pojo)
+    {
         $this->init();
         $fields = $this->atributes->createFields($pojo);
         $values = $this->atributes->createValues($pojo);
@@ -41,7 +44,8 @@ class Dao {
         }
     }
 
-    public function readByKey($key) {
+    public function readByKey($key)
+    {
         $this->init();
         $query = "SELECT * FROM $this->tableName WHERE $this->dbKey = '$key'";
         $pdo = $this->instanceConn->prepare($query);
@@ -54,7 +58,8 @@ class Dao {
         }
     }
 
-    public function readByAtributes($atributes) {
+    public function readByAtributes($atributes)
+    {
         $this->init();
 
         $where = $this->atributes->createWhere($atributes);
@@ -70,10 +75,11 @@ class Dao {
         }
     }
 
-    public function update($pojo) {
+    public function update($pojo)
+    {
 
         $this->init();
-        $keyValue = NULL;
+        $keyValue = null;
         $fields = $this->atributes->updateFields($pojo);
 
         foreach ($pojo as $key => $value) {
@@ -97,10 +103,39 @@ class Dao {
         }
     }
 
-    private function init() {
+    public function delete($name, $value)
+    {        
+        $this->init();
+        $query = "DELETE FROM $this->tableName WHERE $name = '$value'";
+        $pdo = $this->instanceConn->prepare($query);
+        
+        try {
+            $pdo->execute();
+               return $pdo->rowCount();
+        } catch (PDOException $e) {
+            dump($e->getMessage());
+        }
+    }
+        
+    public function deleteByKey($key)
+    {        
+        $this->init();
+        $query = "DELETE FROM $this->tableName WHERE $this->dbKey = '$key'";
+        $pdo = $this->instanceConn->prepare($query);
+        
+        try {
+            $pdo->execute();
+            return $pdo->rowCount();
+        } catch (PDOException $e) {
+            dump($e->getMessage());
+        }
+    }
+        
+
+    private function init()
+    {
         $this->instanceConn = $this->conn->connection();
         $this->tableName = $this->entity->tableName;
         $this->dbKey = $this->entity->key;
     }
-
 }

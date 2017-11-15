@@ -24,8 +24,19 @@ readByAtributes
 $att = ['valor'=>'60'];
 $dados = $dao->readByAtributes($att);
 var_dump($dados);
-*/
+
 
 $up = ['id'=>'3','valor'=>'40','nome'=>'Hobbit'];
 $rowsAf = $dao->update($up);
 var_dump($rowsAf);
+
+*/
+
+$rowsAf = $dao->deleteByKey(3);
+var_dump($rowsAf);
+
+$rowsAf = $dao->delete('nome','Hobbit');
+var_dump($rowsAf);
+
+$dados = $dao->readByAtributes([]);
+var_dump($dados);
