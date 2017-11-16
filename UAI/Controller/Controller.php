@@ -2,6 +2,8 @@
 
 namespace UAI\Controller;
 
+use UAI\DAO\Dao;
+
 const DS = DIRECTORY_SEPARATOR;
 
 class Controller extends Router
@@ -12,15 +14,16 @@ class Controller extends Router
     protected $title;
     protected $keywords;
     protected $layout = '_layoutMain';
-
+    protected $dao;
+    
     
     public function __construct()
     {
-        parent::__construct();
+        parent::__construct();        
     }
 
     public function teste()
-    {
+    {      
         echo "Area: {$this->getArea()}<br>
         Controller: {$this->getController()}<br>
         Action: {$this->getAction()}<br>";
@@ -118,4 +121,5 @@ class Controller extends Router
         }
         return $findFile;
     }
+
 }
