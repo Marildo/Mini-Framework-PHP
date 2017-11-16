@@ -1,5 +1,11 @@
-<div class="jumbotron">    
-    <div class="text-info" >
-       Uai - Conteudo da home
-    </div>
+<div class="jumbotron">
+  <h3 class="display-3">Categorias!</h3>
+   <hr class="m-y-2">
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <?php
+       $categorias = $this->ReadAll();
+       foreach ($categorias as $item):  ?>
+          <button type="button" class="btn btn-primary"> <?php echo $item->nome ?> </button>
+       <?php endforeach; ?>        
+    </div> 
 </div>

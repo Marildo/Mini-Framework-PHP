@@ -8,26 +8,17 @@ const DS = DIRECTORY_SEPARATOR;
 
 class Controller extends Router
 {
-
     private $runController;
     protected $message;
     protected $title;
     protected $keywords;
     protected $layout = '_layoutMain';
     protected $dao;
-    
-    
+        
     public function __construct()
     {
-        parent::__construct();        
-    }
-
-    public function teste()
-    {      
-        echo "Area: {$this->getArea()}<br>
-        Controller: {$this->getController()}<br>
-        Action: {$this->getAction()}<br>";
-        var_dump($this->getParams());
+        parent::__construct();
+        $this->dao = new Dao();
     }
 
     public function run()
@@ -45,7 +36,7 @@ class Controller extends Router
     public function index($message = null)
     {      
         $this->message = $message;
-        $this->view('index');
+        $this->view('index');                
     }
 
     public function view($render = null)
@@ -122,4 +113,17 @@ class Controller extends Router
         return $findFile;
     }
 
+    // metodos do Dao
+
+    public function readByAtributes($atributes) {
+         // fazer paginacao aqui
+        return $this->dao->readByAtributes($atributes);
+    }
+
+    public function readAll()
+    {
+        if (isset($this->dao)) {            
+            return self::readByAtributes([]);
+        }
+    }
 }
