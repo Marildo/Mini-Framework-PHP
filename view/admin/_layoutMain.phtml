@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<!-- Layout default de adminstrador
+-->
+<html>
+    <head>
+        <title><?php echo $this->title; ?></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="<?php echo ROOT_VIEW?>public/bootstrap/css/bootstrap.css" rel="stylesheet">                   
+        <script src="<?php echo ROOT_VIEW?>public/jquery/3.2.1/jquery.js"></script>
+        <script src="<?php echo ROOT_VIEW?>public/bootstrap/js/bootstrap.min.js"></script>
+    </head>
+    <body>             
+        <div class="container"> 
+            <div class="collapse" id="collapseExample">
+                <div class="well">
+                    <span class="col-lg-8 right">
+                       <?php echo $this->message ?></span>
+                    <button class="btn btn-sm right" type="button" onclick="fechar()">
+                        Fechar
+                    </button>
+                </div>
+            </div>
+
+            <?php if (!empty($this->message)) { ?>
+                <script>
+                    $(document).ready(function () {
+                        $("#collapseExample").show();
+                    });
+                </script>
+            <?php } ?>
+
+
+            <?php $this->Render(); ?>
+
+        </div>
+
+        <script>
+            function fechar() {
+                $("#collapseExample").hide()();
+            }
+            ;
+        </script>
+
+    </body>
+    <!--    fim-->
+</html>

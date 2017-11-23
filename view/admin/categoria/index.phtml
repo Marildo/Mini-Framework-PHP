@@ -1,0 +1,27 @@
+<div class="jumbotron">
+
+    <table class="table">
+        <thead>
+        <div class="">
+            <h3 class="display-3">Cadastro de Categorias</h3>
+            <h5><a href="">Nova Categoria</a></h5>
+        </div>
+        <tr>
+            <td>Categoria</td>
+            <td>Alterar</td>
+            <td>Excluir</td>
+        </tr>
+        </thead>
+        <?php
+        $categorias = $this->ReadAll();
+        foreach ($categorias as $item):
+            ?>
+            <tr>
+                <td> <?php echo $item->nome ?></td>
+                <td><a href="">Alterar</a></td>
+                <td><a href="">Exlcluir</a></td>
+            </tr>
+        <?php endforeach; ?>   
+    </table>
+
+</div>

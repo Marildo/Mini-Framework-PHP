@@ -64,7 +64,7 @@ class Controller extends Router
     private function RenderLayout()
     {
         if (!is_null($this->layout)) {
-            $layout = "view".DS.$this->layout.".phtml";
+            $layout = "view".DS.$this->getArea().DS.$this->layout.".phtml";
 
             if (file_exists($layout)) {
                 include ($layout);

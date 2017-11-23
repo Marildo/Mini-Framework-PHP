@@ -20,7 +20,7 @@ class Router{
     }
 
     private function setUrl() {
-        $this->url = strip_tags(trim(filter_input(INPUT_GET, 'pg', FILTER_DEFAULT)));        
+        $this->url = strip_tags(trim(filter_input(INPUT_GET, 'pg', FILTER_DEFAULT)));             
     }
 
     private function setUrlParts() {
