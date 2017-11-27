@@ -17,7 +17,7 @@
             ?>
             <tr>
                 <td> <?php echo $item->nome ?></td>
-                <td><a href="">Alterar</a></td>
+                <td><a href="<?php echo $this->getLinkEdit($item->id) ?>">Alterar</a></td>
                 <td><a href="">Exlcluir</a></td>
             </tr>
         <?php endforeach; ?>   

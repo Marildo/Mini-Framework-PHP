@@ -91,7 +91,7 @@ class Dao
 
         $query = "UPDATE $this->tableName  SET $fields WHERE $this->dbKey=:key";
         $pdo = $this->instanceConn->prepare($query);
-
+        
         $bindParameter = $this->atributes->bindCreateParamenters($pojo);
         $bindParameter[':key'] = $keyValue;
 

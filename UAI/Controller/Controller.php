@@ -14,6 +14,7 @@ class Controller extends Router
     protected $keywords;
     protected $layout = '_layoutMain';
     protected $dao;
+    protected $pojo;
         
     public function __construct()
     {
@@ -118,6 +119,13 @@ class Controller extends Router
         self:: RenderLayout();
     }
 
+    protected function edit() {
+        $parans = $this->getParams();
+        $this->pojo = self::readByKey($parans[0]);
+        $this->setFileView();
+        self:: RenderLayout();
+    }
+
     private function getPost() {
         $filtered = null;
         foreach (array_keys($_POST) as $var) {
@@ -125,6 +133,10 @@ class Controller extends Router
         }
 
         return $filtered;
+    }
+
+    public function getPojo(){
+        return $this->pojo;
     }
 
 
@@ -147,5 +159,16 @@ class Controller extends Router
         $lastInsertId = $this->dao->create($pojo);
         self::index('Registro inserido.');
     }
+
+    public function readByKey($key) {
+        return $this->dao->readByKey($key);
+    }
+
+    public function update() {
+        $pojo = self::getPost();
+        $rAf = $this->dao->update($pojo);
+        self::index("Registros alterados: ".$rAf);
+    }
     
+
 }

@@ -81,4 +81,12 @@ class Router{
     public function SaveCreate() {
         return self::getLink() . "/create/";
     }
+
+    public function getLinkEdit($id) {
+        return self::getLink() . "/edit/$id/";
+    }
+
+    public function SaveUpdate() {
+        return self::getLink() . "/update/";
+    }
 }
