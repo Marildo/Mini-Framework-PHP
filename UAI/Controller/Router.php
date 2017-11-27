@@ -77,4 +77,8 @@ class Router{
     public function getLinkAppend() {
         return self::getLink() . "/append/";
     }
+
+    public function SaveCreate() {
+        return self::getLink() . "/create/";
+    }
 }

@@ -113,8 +113,23 @@ class Controller extends Router
         return $findFile;
     }
 
-    // metodos do Dao
+    protected function append() {
+        $this->setFileView();
+        self:: RenderLayout();
+    }
 
+    private function getPost() {
+        $filtered = null;
+        foreach (array_keys($_POST) as $var) {
+            $filtered[$var] = filter_input(INPUT_POST, $var, FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+
+        return $filtered;
+    }
+
+
+
+    // metodos do Dao
     public function readByAtributes($atributes) {
          // fazer paginacao aqui
         return $this->dao->readByAtributes($atributes);
@@ -126,4 +141,11 @@ class Controller extends Router
             return self::readByAtributes([]);
         }
     }
+
+    protected function create() {
+        $pojo = self::getPost();        
+        $lastInsertId = $this->dao->create($pojo);
+        self::index('Registro inserido.');
+    }
+    
 }
