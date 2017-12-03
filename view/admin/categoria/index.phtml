@@ -7,8 +7,8 @@
         </div>
         <tr>
             <td>Categoria</td>
-            <td>Alterar</td>
-            <td>Excluir</td>
+            <td></td>
+            <td></td>
         </tr>
         </thead>
         <?php        
@@ -16,9 +16,9 @@
         foreach ($categorias as $item):
             ?>
             <tr>
-                <td> <?php echo $item->nome ?></td>
+                <td><?php echo $item->nome ?></td>
                 <td><a href="<?php echo $this->getLinkEdit($item->id) ?>">Alterar</a></td>
-                <td><a href="">Exlcluir</a></td>
+                <td><a href="<?php echo $this->getLinkDelete($item->id) ?>">Exlcluir</a></td>
             </tr>
         <?php endforeach; ?>   
     </table>

@@ -126,6 +126,12 @@ class Controller extends Router
         self:: RenderLayout();
     }
 
+    protected function delete() {
+        $parans = $this->getParams();
+        $rAf =  self::deleteByKey($parans[0]);
+        self::index($rAf. ' Registro excluido');
+    }
+
     private function getPost() {
         $filtered = null;
         foreach (array_keys($_POST) as $var) {
@@ -138,8 +144,6 @@ class Controller extends Router
     public function getPojo(){
         return $this->pojo;
     }
-
-
 
     // metodos do Dao
     public function readByAtributes($atributes) {
@@ -170,5 +174,9 @@ class Controller extends Router
         self::index("Registros alterados: ".$rAf);
     }
     
+    public function deleteByKey($key) {
+        return $this->dao->deleteByKey($key);
+    }
+
 
 }

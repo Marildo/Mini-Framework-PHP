@@ -89,4 +89,8 @@ class Router{
     public function SaveUpdate() {
         return self::getLink() . "/update/";
     }
+
+    public function getLinkDelete($id) {
+        return self::getLink() . "/delete/$id/";
+    }
 }
