@@ -74,6 +74,10 @@ class Router{
         return ROOT_SITE."/$this->area/$this->controler";
     }
 
+    public function getLinkHome() {        
+        return ROOT_SITE."/$this->area";        
+    }
+
     public function getLinkAppend() {
         return self::getLink() . "/append/";
     }
