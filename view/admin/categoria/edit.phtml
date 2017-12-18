@@ -1,9 +1,9 @@
-<?php $pojo = $this->getPojo(); ?>
+<?php $pojo = $this->getPojo();?>
 
 <div class="jumbotron">
     <h3>Alteração de Categoria</h3>
-    <form class="form-inline" <form action="<?php echo $this->SaveUpdate()?>" class="form-horizontal" method="Post">
-    <div class="form-group">      
+    <form action="<?php echo $this->SaveUpdate() ?>" class="form-horizontal" method="Post">
+    <div class="form-group">
       <input type="hidden" name="id" value="<?php echo $pojo->id ?>" />
       <label for="nome">Categoria</label>
       <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $pojo->nome ?>"/>

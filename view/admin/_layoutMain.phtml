@@ -13,34 +13,39 @@
         <script src="<?php echo ROOT_VIEW ?>public/bootstrap/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <div class="container">
-            <div class="collapse" id="collapseExample">
-                <div class="well">
-                    <span class="col-lg-10 right">
+        <div class="collapse" id="collapseExample">
+            <div class="well">
+                <span class="col-lg-10 right">
                     <h4 class="text-success"> <?php echo $this->message ?>
                     </h4>
-                    </span>
-                    <button class="btn btn-sm right" type="button" onclick="fechar()">
-                        Fechar
-                    </button>
+                </span>
+                <button class="btn btn-sm right" type="button" onclick="fechar()">
+                    Fechar
+                </button>
+            </div>
+        </div>
+        <div class="container">
+            <nav class='row'>
+                <div class="col-xs-8">
+                    <h3 class="display-3"><a href="<?php echo $this->getLinkHome() ?>">Area Administrativa</a></h3>
                 </div>
-            </div>
-            <div class='cabecalho'>
-                <h3 class="display-3"><a href="<?php echo $this->getLinkHome()?>">Area Administrativa</a></h3>
+                <div class="col-xs-4">
+                    <a class="btn btn-primary right" href="<?php echo $this->getLinkLogin()?>" >Login</a>
+                    <a class="btn btn-default right" href="<?php echo $this->getLinkLogout()?>" >Logout</a>                    
+                </div>
                 <hr class="m-y-2">
-            </div>
+                <br>
+            </nav>
 
-            <?php if (!empty($this->message)) {?>
+            <?php if (!empty($this->message)) { ?>
                 <script>
                     $(document).ready(function () {
                         $("#collapseExample").show();
                     });
                 </script>
-            <?php }?>
+            <?php } ?>
 
-
-            <?php $this->Render();?>
-
+            <?php $this->Render(); ?>
         </div>
 
         <script>

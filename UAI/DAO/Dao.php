@@ -9,7 +9,6 @@ use UAI\DAO\Libs\Atributes;
 
 class Dao
 {
-
     private $conn;
     private $instanceConn;
     protected $entity;
@@ -54,7 +53,7 @@ class Dao
             $pdo->execute();
             return $pdo->fetch();
         } catch (PDOException $e) {
-            dump($e->getMessage());
+            var_dump($e->getMessage());
         }
     }
 
@@ -71,7 +70,7 @@ class Dao
             $pdo->execute();
             return $pdo->fetchAll();
         } catch (PDOException $e) {
-            dump($e->getMessage());
+          var_dump($e->getMessage());
         }
     }
 
@@ -99,7 +98,7 @@ class Dao
             $pdo->execute($bindParameter);
             return $pdo->rowCount();
         } catch (PDOException $e) {
-            dump($e->getMessage());
+            var_dump($e->getMessage());
         }
     }
 
@@ -113,7 +112,7 @@ class Dao
             $pdo->execute();
                return $pdo->rowCount();
         } catch (PDOException $e) {
-            dump($e->getMessage());
+            var_dump($e->getMessage());
         }
     }
         
@@ -127,7 +126,7 @@ class Dao
             $pdo->execute();
             return $pdo->rowCount();
         } catch (PDOException $e) {
-            dump($e->getMessage());
+            var_dump($e->getMessage());
         }
     }
         

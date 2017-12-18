@@ -8,7 +8,7 @@ class Router{
     private $urlParts;
     private $area;
     private $action;
-    private $params;
+    private $params;    
   
     public function __construct(){           
         $this->setUrl();
@@ -19,8 +19,12 @@ class Router{
         $this->setParams();
     }
 
-    private function setUrl() {
-        $this->url = strip_tags(trim(filter_input(INPUT_GET, 'pg', FILTER_DEFAULT)));             
+    private function setUrl() {  
+            $this->url = strip_tags(trim(filter_input(INPUT_GET, 'pg', FILTER_DEFAULT)));                          
+    }
+
+    protected function getUtl(){
+        return $this->url ;
     }
 
     private function setUrlParts() {
@@ -39,7 +43,7 @@ class Router{
         return $this->area;
     }
 
-    private function setController() {
+    private function setController() {         
         if (empty($this->urlParts[1])) {
             $this->urlParts[1] = 'home';
         }
@@ -69,9 +73,20 @@ class Router{
         return $this->params;
     }
 
-
     private function getLink() {
         return ROOT_SITE."/$this->area/$this->controler";
+    }
+
+    public function getLinkLogin() {        
+        return ROOT_SITE."/$this->area"."/login/";        
+    }
+
+    public function getLinkLogout() {        
+        return self::getLinkLogin() . "logout/";        
+    }
+
+    public function getLinkSignIn() {   
+        return self::getLinkLogin() . "signin/";                  
     }
 
     public function getLinkHome() {        

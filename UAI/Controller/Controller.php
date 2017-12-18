@@ -3,31 +3,33 @@
 namespace UAI\Controller;
 
 use UAI\DAO\Dao;
+use \UAI\Controller\Authentication;
 
 const DS = DIRECTORY_SEPARATOR;
 
 class Controller extends Router
 {
     private $runController;
+    protected $authentication;
     protected $message;
-    protected $title;
+    protected $title = 'Meu titulo';
     protected $keywords;
     protected $layout = '_layoutMain';
     protected $dao;
     protected $pojo;
-    protected $requireAutentication = false;
-    protected $url_Login;
+    protected $sessionName = 'sdAdmin';
+    protected $requireAuthentication = false;
 
     public function __construct()
     {
         parent::__construct();
-        $this->url_Login = $this->getArea() . DS . "login.phtml";
-
+        $this->authentication = new Authentication();
         $this->dao = new Dao();
     }
 
-    public function ctrl(){
-          return self;
+    public function ctrl()
+    {
+        return self;
     }
 
     public function run()
@@ -38,10 +40,8 @@ class Controller extends Router
         $this->runController = new $this->runController();
 
         $this->validarAction();
-
         $act = $this->getAction();
-        
-        $this->runController->$act();        
+        $this->runController->$act();
     }
 
     public function index($message = null)
@@ -61,6 +61,10 @@ class Controller extends Router
 
     public function Render()
     {
+        if (!$this->authenticate()) {
+            $this->authentication->save("url",$this->getUtl());
+            header('Location:'.$this->getLinkLogin()); 
+        }
         if (is_array($this->fileView) && count($this->fileView) > 0) {
             foreach ($this->fileView as $key => $value) {
                 include $value;
@@ -109,7 +113,7 @@ class Controller extends Router
             }
         } else {
             $pathRender = is_null($render) ? $this->getAction() : $render;
-            $this->fileView = 'View' . DS . $this->getArea() . DS . $this->getController() . DS . $pathRender . '.phtml';
+            $this->fileView = 'View' . DS . $this->getArea() . DS . $this->getController() . DS . $pathRender . '.phtml';            
             $this->fileExist($this->fileView);
         }
     }
@@ -121,6 +125,22 @@ class Controller extends Router
             die('Não foi localizado o arquivo ' . $file);
         }
         return $findFile;
+    }
+
+    private function authenticate()
+    {
+        if ($this->requireAuthentication) {
+            return $this->authentication->authenticate($this->sessionName);
+        } else {
+            return true;
+        }
+    }
+
+    private function logout()
+    {
+        $this->authentication->clear($this->sessionName);
+        header('Location:'.$this->getLinkHome()); 
+        
     }
 
     protected function append()
@@ -144,14 +164,14 @@ class Controller extends Router
         self::index($rAf . ' Registro excluido');
     }
 
-    private function getPost()
+    protected function getPost()
     {
         $filtered = null;
         foreach (array_keys($_POST) as $var) {
             $filtered[$var] = filter_input(INPUT_POST, $var, FILTER_SANITIZE_SPECIAL_CHARS);
         }
-
         return $filtered;
+
     }
 
     public function getPojo()
