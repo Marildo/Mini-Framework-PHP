@@ -18,8 +18,11 @@ class LoginController extends Controller
     {
         $user = $this->readByAtributes($this->getPost());
         if (!empty($user)) {
-            $this->authentication->save($this->sessionName, (array) $user[0]);            
-            header('Location:../../../'.$this->authentication->read("url")); 
+            $this->authentication->save($this->sessionName, (array) $user[0]);  
+            $rd = ($this->authentication->read("url")==null)? // para não dizer que não usei ternario
+            'Location:'. $this->getLinkHome():
+            'Location:../../../'.$this->authentication->read("url");
+            header($rd); 
         } else {
             $this->index("Falha no login");
         }
